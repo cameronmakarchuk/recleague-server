@@ -5,12 +5,13 @@
 exports.up = function (knex) {
     return knex.schema
         .createTable('users', (table) => {
-            table.incrementts('id').primary();
+            table.increments('id').primary();
             table.string('first_name').notNullable();
             table.string('last_name').notNullable();
             table.string('email').notNullable();
             table.string('username').notNullable();
             table.string('avatar_url').notNullable();
+            table.boolean('is_league_owner').notNullable().defaultTo(false);
             table.timestamp('updated_at').defaultTo(knex.fn.now());
         })
         .createTable('leagues', (table) => {
@@ -30,7 +31,7 @@ exports.up = function (knex) {
             table.integer('users_id').unsigned().notNullable();
             table.integer('leagues_id').unsigned().notNullable();
             table.foreign('users_id').references('id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE');
-            table.foreign('leages_id').references('id').inTable('leagues').onUpdate('CASCADE').onDelete('CASCADE');
+            table.foreign('leagues_id').references('id').inTable('leagues').onUpdate('CASCADE').onDelete('CASCADE');
         })
 };
 
