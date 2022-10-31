@@ -27,8 +27,14 @@ router.get('/:leagueId', (req, res) => {
 })
 
 // GET LEAGUES BY LOCATION (or use get all leagues and filter?)
-router.get('//:location', (req, res) => {
-    //get leagues by location
+router.get('/city/:city', (req, res) => {
+    const { city } = req.params;
+    knex('leagues')
+        .where({ city: city })
+        .then((data) => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).send(`Error retrieving your league: ${err}`));
 })
 
 // POST / CREATE NEW LEAGUE
