@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const fs = require('node:fs');
 const { v4: uuidv4 } = require('uuid');
-const fileUpload = require('express-fileupload');
+// const fileUpload = require('express-fileupload');
 
-router.use(fileUpload());
+// router.use(fileUpload());
 
 // GET  USER BY ID
 router.get('/:id', (req, res) => {
