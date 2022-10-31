@@ -9,8 +9,13 @@ exports.up = function (knex) {
             table.string('first_name').notNullable();
             table.string('last_name').notNullable();
             table.string('email').notNullable();
-            table.string('username').notNullable();
-            table.string('avatar_url').notNullable();
+            table.string('address').notNullable();
+            table.string('city').notNullable();
+            table.string('province').notNullable();
+            table.string('country').notNullable();
+            table.string('postal_code').notNullable();
+            table.string('avatar_img').notNullable();
+            table.string('password').notNullable();
             table.boolean('is_league_owner').notNullable().defaultTo(false);
             table.timestamp('updated_at').defaultTo(knex.fn.now());
         })
@@ -18,9 +23,13 @@ exports.up = function (knex) {
             table.increments('id').primary();
             table.integer('league_owner').unsigned().notNullable();
             table.string('name').notNullable();
+            table.string('address').notNullable();
+            table.string('city').notNullable();
+            table.string('province').notNullable();
+            table.string('country').notNullable();
+            table.string('postal_code').notNullable();
             table.string('sport').notNullable();
             table.string('gender').notNullable();
-            table.string('address').notNullable();
             table.integer('price').notNullable();
             table.string('start_date').notNullable();
             table.string('end_date').notNullable();
@@ -40,5 +49,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-    return knex.schema.dropTable('users').dropTable('leagues').dropTable('league_details');
+    return knex.schema.dropTable('league_details').dropTable('leagues').dropTable('users');
 };
