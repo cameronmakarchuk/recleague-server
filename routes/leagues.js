@@ -16,8 +16,14 @@ router.get('/', (_req, res) => {
 })
 
 // GET LEAGUE BY ID
-router.get('/:id', (req, res) => {
-    //get leagues by id
+router.get('/:leagueId', (req, res) => {
+    const { leagueId } = req.params;
+    knex('leagues')
+        .where({ id: leagueId })
+        .then((data) => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).send(`Error retrieving your league: ${err}`));
 })
 
 // GET LEAGUES BY LOCATION (or use get all leagues and filter?)
