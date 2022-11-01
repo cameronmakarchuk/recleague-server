@@ -19,8 +19,25 @@ router.get('/:userId', (req, res) => {
 
 // POST / CREATE NEW USER
 router.post('/', (req, res) => {
-    //create new user
-})
+    knex('users')
+        .insert({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            email: req.body.email,
+            address: req.body.address,
+            city: req.body.city,
+            province: req.body.province,
+            country: req.body.country,
+            postal_code: req.body.postal_code,
+            avatar_img: '',
+            password: req.body.password,
+            is_league_owner: req.body.is_league_owner
+        })
+        .then(resp => {
+            res.sendStatus(201)
+        })
+        .catch(err => res.status(400).send(`Error creating your user profile: ${err}`));
+});
 
 //PATCH / EDIT USER BY ID
 router.patch('/:id', (req, res) => {

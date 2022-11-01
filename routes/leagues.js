@@ -39,7 +39,26 @@ router.get('/city/:city', (req, res) => {
 
 // POST / CREATE NEW LEAGUE
 router.post('/', (req, res) => {
-    //create a new league
+    knex('leagues')
+        .insert({
+            league_owner: 1,
+            name: req.body.name,
+            address: req.body.address,
+            city: req.body.city,
+            province: req.body.province,
+            country: req.body.country,
+            postal_code: req.body.postal_code,
+            sport: req.body.sport,
+            gender: req.body.gender,
+            price: req.body.price,
+            start_date: req.body.start_date,
+            end_date: req.body.end_date,
+            description: req.body.description
+        })
+        .then(resp => {
+            res.status(201).send(resp[0]);
+        })
+        .catch(err => res.status(400).send(`Error creating your league: ${err}`));
 })
 
 //PATCH / EDIT LEAGUE DETAILS BY ID
