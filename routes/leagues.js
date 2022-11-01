@@ -56,7 +56,7 @@ router.post('/', (req, res) => {
             description: req.body.description
         })
         .then(resp => {
-            res.status(201).send(resp[0]);
+            res.status(201).send(`League was created at: /leagues/${resp[0]}`);
         })
         .catch(err => res.status(400).send(`Error creating your league: ${err}`));
 })

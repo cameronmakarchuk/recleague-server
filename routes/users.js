@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
             is_league_owner: req.body.is_league_owner
         })
         .then(resp => {
-            res.sendStatus(201)
+            res.status(201).send(`User was created at: /users/${resp[0]}`);
         })
         .catch(err => res.status(400).send(`Error creating your user profile: ${err}`));
 });
