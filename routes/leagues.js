@@ -1,16 +1,26 @@
 const router = require('express').Router();
 const knex = require('knex')(require('../knexfile'))
+const { appendFile } = require('node:fs');
 const fs = require('node:fs');
 const { v4: uuidv4 } = require('uuid');
+
+
 // const fileUpload = require('express-fileupload');
 
 // router.use(fileUpload());
 
 // GET ALL LEAGUES
-router.get('/', (_req, res) => {
+router.get('/', (req, res) => {
+    const queryParams = req.query;
     knex('leagues')
         .then((data) => {
-            res.status(200).json(data);
+            if (queryParams.location) {
+                data = data.filter(league => league.city.toLowerCase() === queryParams.location.toLowerCase());
+                res.status(200).json(data);
+            } else {
+                res.status(200).json(data);
+
+            }
         })
         .catch(err => res.status(400).send(`Error retrieving leagues: ${err}`));
 })
