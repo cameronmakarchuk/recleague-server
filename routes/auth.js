@@ -24,6 +24,10 @@ router.get('/profile', authorize, (req, res) => {
     res.json(req.payload);
 });
 
+router.get('/logout', (req, res) => {
+    // ADD THIS IN LATER...
+})
+
 function authorize(req, res, next) {
     const { authorization } = req.headers;
     // const token = authorization.split(' ')[1];
