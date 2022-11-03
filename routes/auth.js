@@ -1,5 +1,6 @@
 const router = require('express').Router('');
-const knex = require('knex')(require('../knexfile'))
+const knex = require('knex')(require('../knexfile'));
+const jwt = require('jsonwebtoken');
 
 
 router.post('/login', (req, res) => {
@@ -9,18 +10,31 @@ router.post('/login', (req, res) => {
         .then((resp) => {
             const user = resp[0];
             if (!user) {
-                res.status(403).send({ token: null, message: `No user found at ${email}` });
+                res.status(403).json({ token: null, message: `No user found at ${email}` });
             } else if (user.password === password) {
-                // let token = jwt.sign({ email: email }, 'secret123');
-                res.status(200).json('It WORKED!');
+                let token = jwt.sign({ name: user.first_name }, 'secret123');
+                res.status(200).json({ token: token, message: `Successful login.` });
             } else {
-                res.status(403).send('Incorrect email or password.');
+                res.status(403).json({ token: null, message: `Incorrect password.` });
             }
         })
-})
+});
 
-router.get('/profile', (req, res) => {
+router.get('/profile', authorize, (req, res) => {
+    res.json(req.payload);
+});
 
-})
+function authorize(req, res, next) {
+    const { authorization } = req.headers;
+    // const token = authorization.split(' ')[1];
+    jwt.verify(authorization, 'secret123', (err, decoded) => {
+        if (err) {
+            res.status(403).send('Token not valid');
+        } else {
+            req.payload = decoded;
+        }
+        next();
+    })
+}
 
 module.exports = router;
