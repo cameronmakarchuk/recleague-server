@@ -14,8 +14,16 @@ router.get('/', (req, res) => {
     const queryParams = req.query;
     knex('leagues')
         .then((data) => {
-            if (queryParams.location) {
+            if (queryParams.location && queryParams.sport) {
+                data = data.filter(league => {
+                    return league.city.toLowerCase() === queryParams.location.toLowerCase() && league.sport.toLowerCase() === queryParams.sport.toLowerCase();
+                })
+                res.status(200).json(data);
+            } else if (queryParams.location) {
                 data = data.filter(league => league.city.toLowerCase() === queryParams.location.toLowerCase());
+                res.status(200).json(data);
+            } else if (queryParams.sport) {
+                data = data.filter(league => league.sport.toLowerCase() === queryParams.sport.toLowerCase());
                 res.status(200).json(data);
             } else {
                 res.status(200).json(data);
@@ -66,7 +74,7 @@ router.post('/', (req, res) => {
             description: req.body.description
         })
         .then(resp => {
-            res.status(201).send(`League was created at: /leagues/${resp[0]}`);
+            res.status(201).send(`/leagues/${resp[0]}`);
         })
         .catch(err => res.status(400).send(`Error creating your league: ${err}`));
 })
