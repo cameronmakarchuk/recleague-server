@@ -12,8 +12,12 @@ router.post('/login', (req, res) => {
             if (!user) {
                 res.status(403).json({ token: null, message: `No user found at ${email}` });
             } else if (user.password === password) {
-                let token = jwt.sign({ name: user.first_name }, 'secret123');
-                res.status(200).json({ token: token, message: `Successful login.` });
+                let token = jwt.sign({ email: user.email }, 'secret123');
+                res.status(200).json({
+                    token: token,
+                    message: `Successful login.`,
+                    user
+                });
             } else {
                 res.status(403).json({ token: null, message: `Incorrect password.` });
             }
@@ -21,7 +25,11 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/profile', authorize, (req, res) => {
-    res.json(req.payload);
+    knex('users').where({ email: req.payload.email })
+        .then(resp => {
+            res.status(200).json(resp[0]);
+        })
+        .catch(err => res.status(403).send(`Forbidden: ${err}`))
 });
 
 router.get('/logout', (req, res) => {
@@ -30,10 +38,9 @@ router.get('/logout', (req, res) => {
 
 function authorize(req, res, next) {
     const { authorization } = req.headers;
-    // const token = authorization.split(' ')[1];
     jwt.verify(authorization, 'secret123', (err, decoded) => {
         if (err) {
-            res.status(403).send('Token not valid');
+            res.status(403).send(`Token not valid: ${err}`);
         } else {
             req.payload = decoded;
         }

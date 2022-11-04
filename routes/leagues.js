@@ -55,6 +55,16 @@ router.get('/city/:city', (req, res) => {
         .catch(err => res.status(400).send(`Error retrieving your league: ${err}`));
 })
 
+// GET LEAGUES BY LEAGUE_OWNER/USERID
+router.get('/user/:userId', (req, res) => {
+    const { userId } = req.params;
+    knex('leagues').where({ league_owner: userId })
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).send(`Error retrieving your league data: ${err}`));
+})
+
 // POST / CREATE NEW LEAGUE
 router.post('/', (req, res) => {
     knex('leagues')
