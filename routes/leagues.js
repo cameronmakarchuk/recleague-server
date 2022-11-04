@@ -69,7 +69,7 @@ router.get('/user/:userId', (req, res) => {
 router.post('/', (req, res) => {
     knex('leagues')
         .insert({
-            league_owner: 1,
+            league_owner: req.body.league_owner,
             name: req.body.name,
             address: req.body.address,
             city: req.body.city,
