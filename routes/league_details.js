@@ -3,7 +3,7 @@ const knex = require('knex')(require('../knexfile'))
 
 
 
-
+// JOIN LEAGUE WITH USER / ADD USER TO LEAGUE
 router.post('/', (req, res) => {
     knex('league_details')
         .insert({
@@ -16,6 +16,7 @@ router.post('/', (req, res) => {
         .catch(err => res.status(400).send(`Error creating your record: ${err}`));
 })
 
+// GET LEAGUES JOINED BY USERID
 router.get('/leagues/:userId', (req, res) => {
     const { userId } = req.params;
     knex.select('users.id_user', 'users.first_name', 'leagues.id_league', 'leagues.name')
