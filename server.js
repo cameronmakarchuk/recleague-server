@@ -6,6 +6,7 @@ require('dotenv').config();
 const leagueRoutes = require('./routes/leagues');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
+const leagueDetailsRoutes = require('./routes/league_details');
 const port = process.env.PORT ?? 8080;
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.static('public'));
 app.use('/leagues', leagueRoutes);
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
+app.use('/league-details', leagueDetailsRoutes)
 
 
 app.listen(port, () => {
