@@ -18,10 +18,10 @@ router.post('/', (req, res) => {
 
 router.get('/leagues/:userId', (req, res) => {
     const { userId } = req.params;
-    knex.select('users.id', 'users.first_name', 'leagues.id', 'leagues.name')
-        .from('users')
-        .join('league_details', { 'league_details.users_id': 'users.id' })
-        .join('leagues', { 'leagues.id': 'league_details.leagues_id' })
+    knex.select('users.id_user', 'users.first_name', 'leagues.id_league', 'leagues.name')
+        .from('users').where({ id_user: userId })
+        .join('league_details', { 'league_details.users_id': 'users.id_user' })
+        .join('leagues', { 'leagues.id_league': 'league_details.leagues_id' })
         .then(resp => res.status(200).json(resp))
         .catch(err => res.status(400).json(err))
 
