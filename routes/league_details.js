@@ -2,6 +2,8 @@ const router = require('express').Router();
 const knex = require('knex')(require('../knexfile'))
 
 
+
+
 router.post('/', (req, res) => {
     knex('league_details')
         .insert({
@@ -9,7 +11,7 @@ router.post('/', (req, res) => {
             leagues_id: req.body.leagues_id
         })
         .then(resp => {
-            res.status(201).send(`It worked! ${resp}`)
+            res.status(201).json({ id: resp });
         })
         .catch(err => res.status(400).send(`Error creating your record: ${err}`));
 })
