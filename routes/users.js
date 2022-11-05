@@ -8,7 +8,7 @@ const { v4: uuidv4 } = require('uuid');
 router.get('/:userId', (req, res) => {
     const { userId } = req.params;
     knex('users')
-        .where({ id: userId })
+        .where({ id_user: userId })
         .then(data => {
             res.status(200).json(data);
         })

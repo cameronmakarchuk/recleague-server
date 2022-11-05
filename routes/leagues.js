@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
 router.get('/:leagueId', (req, res) => {
     const { leagueId } = req.params;
     knex('leagues')
-        .where({ id: leagueId })
+        .where({ id_league: leagueId })
         .then((data) => {
             res.status(200).json(data);
         })
