@@ -28,6 +28,18 @@ router.get('/leagues/:userId', (req, res) => {
 
 })
 
+// GET USERS THAT HAVE JOINED A LEAGUE BY LEAGUEID
+router.get('/users/:leagueId', (req, res) => {
+    const { leagueId } = req.params;
+    knex.select('leagues.id_league', 'leagues.name', 'users.id_user', 'users.first_name', 'users.last_name', 'users.email')
+        .from('leagues').where({ id_league: leagueId })
+        .join('league_details', { 'league_details.leagues_id': 'leagues.id_league' })
+        .join('users', { 'users.id_user': 'league_details.users_id' })
+        .then(resp => res.status(200).json(resp))
+        .catch(err => res.status(400).json(err))
+
+})
+
 /* 
 SELECT users.id, users.first_name, leagues.id, leagues.name
 FROM leagues
