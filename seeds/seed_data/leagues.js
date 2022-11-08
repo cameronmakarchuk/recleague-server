@@ -3,7 +3,7 @@ module.exports = [
         id_league: 1,
         league_owner: 1,
         name: 'Ultimate Basketball League',
-        address: '589 Basketball Drive',
+        address: '235 Bloor Street West',
         city: 'Toronto',
         province: 'Ontario',
         country: 'Canada',

@@ -1,7 +1,4 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
+
 exports.up = function (knex) {
     return knex.schema
         .createTable('users', (table) => {
@@ -46,10 +43,7 @@ exports.up = function (knex) {
         })
 };
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
+
 exports.down = function (knex) {
     return knex.schema.dropTable('league_details').dropTable('leagues').dropTable('users');
 };
