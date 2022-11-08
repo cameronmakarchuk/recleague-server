@@ -5,7 +5,7 @@
 exports.up = function (knex) {
     return knex.schema
         .createTable('users', (table) => {
-            table.increments('id').primary();
+            table.increments('id_user').primary();
             table.string('first_name').notNullable();
             table.string('last_name').notNullable();
             table.string('email').notNullable();
@@ -20,7 +20,7 @@ exports.up = function (knex) {
             table.timestamp('updated_at').defaultTo(knex.fn.now());
         })
         .createTable('leagues', (table) => {
-            table.increments('id').primary();
+            table.increments('id_league').primary();
             table.integer('league_owner').unsigned().notNullable();
             table.string('name').notNullable();
             table.string('address').notNullable();
@@ -34,13 +34,15 @@ exports.up = function (knex) {
             table.string('start_date').notNullable();
             table.string('end_date').notNullable();
             table.text('description').notNullable();
-            table.foreign('league_owner').references('id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE');
+            table.foreign('league_owner').references('id_user').inTable('users').onUpdate('CASCADE').onDelete('CASCADE');
         })
         .createTable('league_details', (table) => {
+            table.increments('id').primary();
             table.integer('users_id').unsigned().notNullable();
             table.integer('leagues_id').unsigned().notNullable();
-            table.foreign('users_id').references('id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE');
-            table.foreign('leagues_id').references('id').inTable('leagues').onUpdate('CASCADE').onDelete('CASCADE');
+            table.timestamp('added_at').defaultTo(knex.fn.now());
+            table.foreign('users_id').references('id_user').inTable('users').onUpdate('CASCADE').onDelete('CASCADE');
+            table.foreign('leagues_id').references('id_league').inTable('leagues').onUpdate('CASCADE').onDelete('CASCADE');
         })
 };
 
