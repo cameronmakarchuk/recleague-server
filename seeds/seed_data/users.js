@@ -1,6 +1,6 @@
 module.exports = [
     {
-        id: 1,
+        id_user: 1,
         first_name: 'Cameron',
         last_name: 'Makarchuk',
         email: 'test@test.com',
@@ -12,5 +12,33 @@ module.exports = [
         avatar_img: 'IMG_5459 3.JPG',
         password: '1234',
         is_league_owner: true,
+    },
+    {
+        id_user: 2,
+        first_name: 'Thyrone',
+        last_name: 'Smith',
+        email: 'thyrone@thyrone.com',
+        address: '89 Bloor Street East',
+        city: 'Toronto',
+        province: 'Ontario',
+        country: 'Canada',
+        postal_code: 'M4W 3Y3',
+        avatar_img: '1667859559314pexels-thyrone-paas-1722198.jpg',
+        password: '1234',
+        is_league_owner: false,
+    },
+    {
+        id_user: 3,
+        first_name: 'Andrea',
+        last_name: 'Jones',
+        email: 'andrea@andrea.com',
+        address: '2048 Ossington Street',
+        city: 'Toronto',
+        province: 'Ontario',
+        country: 'Canada',
+        postal_code: 'M4W 3Y3',
+        avatar_img: 'pexels-andrea-piacquadio-3786525.jpg',
+        password: '1234',
+        is_league_owner: false,
     }
 ]
