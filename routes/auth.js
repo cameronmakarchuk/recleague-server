@@ -2,6 +2,10 @@ const router = require('express').Router('');
 const knex = require('knex')(require('../knexfile'));
 const jwt = require('jsonwebtoken');
 
+require('dotenv').config();
+
+const SECRET_KEY = process.env.SESSION_SECRET;
+
 
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
@@ -12,7 +16,7 @@ router.post('/login', (req, res) => {
             if (!user) {
                 res.status(403).json({ token: null, message: `No user found at ${email}` });
             } else if (user.password === password) {
-                let token = jwt.sign({ email: user.email }, 'secret123');
+                let token = jwt.sign({ email: user.email }, SECRET_KEY);
                 res.status(200).json({
                     token: token,
                     message: `Successful login.`,
@@ -38,7 +42,7 @@ router.get('/logout', (req, res) => {
 
 function authorize(req, res, next) {
     const { authorization } = req.headers;
-    jwt.verify(authorization, 'secret123', (err, decoded) => {
+    jwt.verify(authorization, SECRET_KEY, (err, decoded) => {
         if (err) {
             res.status(403).send(`Token not valid: ${err}`);
         } else {
