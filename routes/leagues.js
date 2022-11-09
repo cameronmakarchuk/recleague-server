@@ -90,8 +90,12 @@ router.post('/', (req, res) => {
 })
 
 //PATCH / EDIT LEAGUE DETAILS BY ID
-router.patch('/:id', (req, res) => {
-    //edit league details by id
+router.patch('/:leagueId', (req, res) => {
+    knex('leagues')
+        .update(req.body)
+        .where({ id_league: req.params.leagueId })
+        .then((resp) => res.status(200).json(resp))
+        .catch(err => res.status(400).send(`Error updating league: ${req.params.leagueId} ${err}`));
 })
 
 module.exports = router;

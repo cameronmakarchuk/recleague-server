@@ -10,7 +10,7 @@ router.get('/:userId', (req, res) => {
     knex('users')
         .where({ id_user: userId })
         .then(data => {
-            res.status(200).json(data);
+            res.status(200).json(data[0]);
         })
         .catch(err => res.status(400).send(`Error retrieving your league: ${err}`));
 })
@@ -53,8 +53,12 @@ router.post('/', (req, res) => {
 });
 
 //PATCH / EDIT USER BY ID
-router.patch('/:id', (req, res) => {
-    //edit user by id
+router.patch('/:userId', (req, res) => {
+    knex('users')
+        .update(req.body)
+        .where({ id_user: req.params.userId })
+        .then((resp) => res.status(200).json(resp))
+        .catch(err => res.status(400).send(`Error updating user: ${req.params.userId} ${err}`));
 })
 
 module.exports = router;
