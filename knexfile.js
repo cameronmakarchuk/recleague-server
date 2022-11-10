@@ -1,10 +1,12 @@
+require('dotenv').config();
+
 module.exports = {
   client: 'mysql',
   connection: {
-    host: '127.0.0.1',
-    user: process.env.SQL_USER ?? 'root',
-    password: process.env.SQL_PASSWORD ?? 'rootroot',
-    database: 'recleague',
+    host: process.env.SQL_HOST,
+    user: process.env.SQL_USER,
+    password: process.env.SQL_PASSWORD,
+    database: process.env.SQL_DATABASE,
     charset: 'utf8'
   },
 };
