@@ -1,7 +1,5 @@
 const router = require('express').Router();
 const knex = require('knex')(require('../knexfile'));
-const fs = require('node:fs');
-const { v4: uuidv4 } = require('uuid');
 
 
 // GET  USER BY ID
@@ -45,11 +43,6 @@ router.post('/', (req, res) => {
                 .catch(err => res.status(400).send(`Error creating your user profile: ${err}`));
         }
     });
-
-
-
-
-
 });
 
 //PATCH / EDIT USER BY ID

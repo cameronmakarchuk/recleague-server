@@ -1,7 +1,6 @@
 const express = require('express');
 const fileupload = require("express-fileupload");
 const cors = require('cors');
-const fs = require('node:fs');
 require('dotenv').config();
 const leagueRoutes = require('./routes/leagues');
 const userRoutes = require('./routes/users');

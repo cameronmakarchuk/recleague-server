@@ -36,10 +36,6 @@ router.get('/profile', authorize, (req, res) => {
         .catch(err => res.status(403).send(`Forbidden: ${err}`))
 });
 
-router.get('/logout', (req, res) => {
-    // ADD THIS IN LATER...
-})
-
 function authorize(req, res, next) {
     const { authorization } = req.headers;
     jwt.verify(authorization, SECRET_KEY, (err, decoded) => {

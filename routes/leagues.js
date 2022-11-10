@@ -1,13 +1,6 @@
 const router = require('express').Router();
 const knex = require('knex')(require('../knexfile'))
-const { appendFile } = require('node:fs');
-const fs = require('node:fs');
-const { v4: uuidv4 } = require('uuid');
 
-
-// const fileUpload = require('express-fileupload');
-
-// router.use(fileUpload());
 
 // GET ALL LEAGUES
 router.get('/', (req, res) => {

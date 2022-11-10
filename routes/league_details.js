@@ -2,7 +2,6 @@ const router = require('express').Router();
 const knex = require('knex')(require('../knexfile'))
 
 
-
 // JOIN LEAGUE WITH USER / ADD USER TO LEAGUE
 router.post('/', (req, res) => {
     knex('league_details')
@@ -39,18 +38,6 @@ router.get('/users/:leagueId', (req, res) => {
         .catch(err => res.status(400).json(err))
 
 })
-
-/* 
-SELECT users.id, users.first_name, leagues.id, leagues.name
-FROM leagues
-JOIN league_details
-ON (league_details.leagues_id = leagues.id)
-JOIN users
-ON (users.id = league_details.users_id);
-*/
-
-
-
 
 
 module.exports = router;
